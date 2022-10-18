@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Avoid if...else or switchs with strategy handler.</Description>
+    <RepositoryUrl>https://github.com/gcm10000/StrategyHandler.git</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
