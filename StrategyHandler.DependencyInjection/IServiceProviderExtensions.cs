@@ -6,7 +6,6 @@ namespace StrategyHandler.DependencyInjection
 {
     public static class IServiceProviderExtensions
     {
-
         public static IEnumerable<object> GetServices(
             this IServiceProvider provider, Type serviceType)
         {

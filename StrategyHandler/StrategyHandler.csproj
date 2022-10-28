@@ -5,6 +5,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Avoid if...else or switchs with strategy handler.</Description>
     <RepositoryUrl>https://github.com/gcm10000/StrategyHandler.git</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>

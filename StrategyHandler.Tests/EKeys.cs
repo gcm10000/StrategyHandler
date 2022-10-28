@@ -3,6 +3,7 @@
     public enum EKeys
     {
         A,
-        B
+        B,
+        C
     }
 }

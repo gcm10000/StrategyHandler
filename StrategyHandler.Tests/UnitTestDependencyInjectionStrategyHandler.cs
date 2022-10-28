@@ -22,6 +22,7 @@ namespace StrategyHandler.Tests
             var services = new ServiceCollection();
 
             //Act
+            services.AddScoped<IAnyInterface, D>();
             services.AddComponentInStrategyHandler(EKeys.A, new A());
             services.RegisterStrategyHandlerAsSingleton<EKeys>();
             var result = await GetPartialActAsync(services);
@@ -67,6 +68,7 @@ namespace StrategyHandler.Tests
             var services = new ServiceCollection();
 
             //Act
+            services.AddScoped<IAnyInterface, D>();
             var assembly = Assembly.GetAssembly(typeof(A));
             services.AddComponentsInStrategyHandlerByAssembly<EKeys>(assembly);
             services.RegisterStrategyHandlerAsSingleton<EKeys>();
@@ -84,6 +86,30 @@ namespace StrategyHandler.Tests
         }
 
         [Fact]
+        public async Task ShouldReturnSuccessWhenGetClassWithParameterInConstructorUsingAssemblyAndDependencyInjection()
+        {
+            //Arrange
+            var services = new ServiceCollection();
+
+            //Act
+            var assembly = Assembly.GetAssembly(typeof(A));
+            services.AddScoped<IAnyInterface, D>();
+            services.AddComponentsInStrategyHandlerByAssembly<EKeys>(assembly);
+            services.RegisterStrategyHandlerAsSingleton<EKeys>();
+
+            var serviceProvider = services.BuildServiceProvider();
+            var context = serviceProvider.GetService<HandlerContext<EKeys>>();
+
+            if (context is null)
+                throw new NullReferenceException();
+
+            var result = await context.Execute(EKeys.C, new DTO());
+
+            //Assert
+            Assert.Equal(true.ToString(), result);
+        }
+
+        [Fact]
         public async Task ShouldReturnFailedWhenAddingSameClassesUsingManualProccessAndAssembly()
         {
             //Arrange
@@ -93,6 +119,7 @@ namespace StrategyHandler.Tests
             static async Task GetAct(IServiceCollection services)
             {
                 services.AddComponentInStrategyHandler(EKeys.A, new A());
+                services.AddScoped<IAnyInterface, D>();
                 var assembly = Assembly.GetAssembly(typeof(A));
                 services.AddComponentsInStrategyHandlerByAssembly<EKeys>(assembly);
                 services.RegisterStrategyHandlerAsSingleton<EKeys>();
@@ -117,6 +144,7 @@ namespace StrategyHandler.Tests
             var services = new ServiceCollection();
 
             //Act
+            services.AddScoped<IAnyInterface, D>();
             services.AddComponentInStrategyHandler(EKeys.B, new B());
             var assembly = Assembly.GetAssembly(typeof(A));
             services.AddComponentsInStrategyHandlerByAssembly<EKeys>(assembly);
